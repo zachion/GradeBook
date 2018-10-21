@@ -18,10 +18,22 @@ namespace Grades
 
             GradeStatistics gradeStatistics = gradeBook.ComputeStats();
 
-            Console.WriteLine(gradeStatistics.AverageGrade);
-            Console.WriteLine(gradeStatistics.HighestGrade);
-            Console.WriteLine(gradeStatistics.LowestGrade);
+            gradeBook.Name = "The greatest emperor strikes back";
+            Console.WriteLine(gradeBook.Name);
+            WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
+            WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
+            WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
+   
+        }
 
+        private static void WriteResult(string description, int result)
+        {
+            Console.WriteLine("{0} : {1}", description , result);
+        }
+
+        private static void WriteResult(string description, float result)
+        {
+            Console.WriteLine($"{description}: {result:F2}", description, result);
         }
     }
 }
