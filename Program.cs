@@ -11,6 +11,9 @@ namespace Grades
         static void Main(string[] args)
         {
             GradeBook gradeBook = new GradeBook();
+            gradeBook.NameChanged += OnNameChanged;
+      
+            
 
             gradeBook.AddGrades(5);
             gradeBook.AddGrades(4);
@@ -19,12 +22,21 @@ namespace Grades
             GradeStatistics gradeStatistics = gradeBook.ComputeStats();
 
             gradeBook.Name = "The greatest emperor strikes back";
+            gradeBook.Name = null;
+            gradeBook.Name = "The greatest emperor strikes back";
+            gradeBook.Name = "The greatest emperor strikes back";
+
             Console.WriteLine(gradeBook.Name);
             WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
             WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
             WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
-   
+
         }
+        static void OnNameChanged(object sender, NameChangedEventArgs args)
+        {
+            Console.WriteLine($"Grade Book Changed from {args.ExistingName} to {args.NewName}");
+        }
+        
 
         private static void WriteResult(string description, int result)
         {
