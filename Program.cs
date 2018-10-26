@@ -14,9 +14,9 @@ namespace Grades
 
             gradeBook.NameChanged += OnNamechanged;
       
-            gradeBook.AddGrades(5);
-            gradeBook.AddGrades(4);
-            gradeBook.AddGrades(3.4f);
+            gradeBook.AddGrades(91);
+            gradeBook.AddGrades(56.2F);
+            gradeBook.AddGrades(67);
 
             GradeStatistics gradeStatistics = gradeBook.ComputeStats();
 
@@ -29,6 +29,8 @@ namespace Grades
             WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
             WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
             WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
+            WriteResult(gradeStatistics.Description, gradeStatistics.LetterGrade);
+            
 
         }
 
@@ -40,9 +42,9 @@ namespace Grades
 
 
 
-        private static void WriteResult(string description, int result)
+        private static void WriteResult(string description, string result)
         {
-            Console.WriteLine("{0} : {1}", description , result);
+            Console.WriteLine("{0}: {1}", description , result);
         }
 
         private static void WriteResult(string description, float result)
