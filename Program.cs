@@ -11,7 +11,7 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeTracker gradeBook = CreateGradeBook();
+            IGradeTracker gradeBook = CreateGradeBook();
 
             gradeBook.NameChanged += OnNamechanged;
 
@@ -22,12 +22,12 @@ namespace Grades
 
         }
 
-        private static GradeBook CreateGradeBook()
+        private static IGradeTracker CreateGradeBook()
         {
             return new ThrowAwayGradeBook();
         }
 
-        private static void WriteResults(GradeTracker gradeBook)
+        private static void WriteResults(IGradeTracker gradeBook)
         {
             GradeStatistics gradeStatistics = gradeBook.ComputeStatistics();
             WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
@@ -36,7 +36,7 @@ namespace Grades
             WriteResult(gradeStatistics.Description, gradeStatistics.LetterGrade);
         }
 
-        private static void SaveGrades(GradeTracker gradeBook)
+        private static void SaveGrades(IGradeTracker gradeBook)
         {
             using (StreamWriter outputFile = File.CreateText("grades.txt"))
             {
@@ -44,14 +44,14 @@ namespace Grades
             };
         }
 
-        private static void AddGrades(GradeTracker gradeBook)
+        private static void AddGrades(IGradeTracker gradeBook)
         {
             gradeBook.AddGrade(90.25f);
             gradeBook.AddGrade(56.2F);
             gradeBook.AddGrade(89.50f);
         }
 
-        private static void GetBookName(GradeTracker gradeBook)
+        private static void GetBookName(IGradeTracker gradeBook)
         {
             try
             {

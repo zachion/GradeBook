@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Grades
         public string Existingname { get; set; }
         public string NewName { get; set; }
 
+        
     }
 }
