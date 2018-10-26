@@ -11,26 +11,39 @@ namespace Grades
         static void Main(string[] args)
         {
             GradeBook gradeBook = new GradeBook();
-
+            
             gradeBook.NameChanged += OnNamechanged;
+
+
+            try
+            {
+                Console.Write("Enter Name:");
+                gradeBook.Name = Console.ReadLine();
+
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            
       
             gradeBook.AddGrades(91);
             gradeBook.AddGrades(56.2F);
             gradeBook.AddGrades(67);
 
-            GradeStatistics gradeStatistics = gradeBook.ComputeStats();
+            gradeBook.WriteGrades(Console.Out);
 
+            GradeStatistics gradeStatistics = gradeBook.ComputeStats();
             gradeBook.Name = "The greatest emperor strikes back";
-            gradeBook.Name = null;
-            gradeBook.Name = "The greatest emperor strikes back";
-            gradeBook.Name = "The greatest emperor strikes back1";
+            gradeBook.Name = "The little puppets inside the conquest of the camelot";
+            gradeBook.Name = "Star Wars";
 
             Console.WriteLine(gradeBook.Name);
             WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
             WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
             WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
             WriteResult(gradeStatistics.Description, gradeStatistics.LetterGrade);
-            
 
         }
 
