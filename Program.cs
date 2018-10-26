@@ -30,6 +30,12 @@ namespace Grades
         private static void WriteResults(IGradeTracker gradeBook)
         {
             GradeStatistics gradeStatistics = gradeBook.ComputeStatistics();
+
+            foreach (float grade in gradeBook)
+            {
+                Console.Write(grade);
+            }
+
             WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
             WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
             WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
