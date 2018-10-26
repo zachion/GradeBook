@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,48 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            GradeBook gradeBook = new GradeBook();
-            
+            GradeTracker gradeBook = CreateGradeBook();
+
             gradeBook.NameChanged += OnNamechanged;
 
+            GetBookName(gradeBook);
+            AddGrades(gradeBook);
+            SaveGrades(gradeBook);
+            WriteResults(gradeBook);
 
+        }
+
+        private static GradeBook CreateGradeBook()
+        {
+            return new ThrowAwayGradeBook();
+        }
+
+        private static void WriteResults(GradeTracker gradeBook)
+        {
+            GradeStatistics gradeStatistics = gradeBook.ComputeStatistics();
+            WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
+            WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
+            WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
+            WriteResult(gradeStatistics.Description, gradeStatistics.LetterGrade);
+        }
+
+        private static void SaveGrades(GradeTracker gradeBook)
+        {
+            using (StreamWriter outputFile = File.CreateText("grades.txt"))
+            {
+                gradeBook.WriteGrades(outputFile);
+            };
+        }
+
+        private static void AddGrades(GradeTracker gradeBook)
+        {
+            gradeBook.AddGrade(90.25f);
+            gradeBook.AddGrade(56.2F);
+            gradeBook.AddGrade(89.50f);
+        }
+
+        private static void GetBookName(GradeTracker gradeBook)
+        {
             try
             {
                 Console.Write("Enter Name:");
@@ -25,28 +63,11 @@ namespace Grades
             {
                 Console.WriteLine(ex.Message);
             }
-
-            
-      
-            gradeBook.AddGrades(91);
-            gradeBook.AddGrades(56.2F);
-            gradeBook.AddGrades(67);
-
-            gradeBook.WriteGrades(Console.Out);
-
-            GradeStatistics gradeStatistics = gradeBook.ComputeStats();
-            gradeBook.Name = "The greatest emperor strikes back";
-            gradeBook.Name = "The little puppets inside the conquest of the camelot";
-            gradeBook.Name = "Star Wars";
-
-            Console.WriteLine(gradeBook.Name);
-            WriteResult("Highest Grade: ", gradeStatistics.HighestGrade);
-            WriteResult("Lowest Grade: ", (int)gradeStatistics.LowestGrade);
-            WriteResult("Avg Grade: ", gradeStatistics.AverageGrade);
-            WriteResult(gradeStatistics.Description, gradeStatistics.LetterGrade);
-
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Something went wrong!");
+            }
         }
-
 
         private static void OnNamechanged(object sender, NameChangedEventArgs args)
         {

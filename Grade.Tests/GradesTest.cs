@@ -88,11 +88,11 @@ namespace Grades.Tests
         public void ComputeHighestGrade()
         {
             GradeBook book = new GradeBook();
-            book.AddGrades(5);
-            book.AddGrades(4);
-            book.AddGrades(3.4f);
+            book.AddGrade(5);
+            book.AddGrade(4);
+            book.AddGrade(3.4f);
 
-            GradeStatistics Stats = book.ComputeStats();
+            GradeStatistics Stats = book.ComputeStatistics();
 
             Assert.AreEqual(5, Stats.HighestGrade);
         }
@@ -102,11 +102,11 @@ namespace Grades.Tests
         {
             GradeBook Book = new GradeBook();
 
-            Book.AddGrades(5);
-            Book.AddGrades(4);
-            Book.AddGrades(3.4f);
+            Book.AddGrade(5);
+            Book.AddGrade(4);
+            Book.AddGrade(3.4f);
 
-            GradeStatistics Stats = Book.ComputeStats();
+            GradeStatistics Stats = Book.ComputeStatistics();
 
             Assert.AreEqual(3.4f, Stats.LowestGrade);
         }
@@ -116,11 +116,11 @@ namespace Grades.Tests
         {
             GradeBook Book = new GradeBook();
 
-            Book.AddGrades(5);
-            Book.AddGrades(4);
-            Book.AddGrades(3.4f);
+            Book.AddGrade(5);
+            Book.AddGrade(4);
+            Book.AddGrade(3.4f);
 
-            GradeStatistics Stats = Book.ComputeStats();
+            GradeStatistics Stats = Book.ComputeStatistics();
 
             Assert.AreEqual(4.13f, Stats.AverageGrade, 0.01);
         }
